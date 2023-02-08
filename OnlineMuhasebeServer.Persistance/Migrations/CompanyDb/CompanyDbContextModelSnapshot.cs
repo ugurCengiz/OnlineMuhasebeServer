@@ -22,15 +22,12 @@ namespace OnlineMuhasebeServer.Persistance.Migrations.CompanyDb
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("OnlineMuhasebeServer.Domain.CompanyEntites.UnitFromChartOfAccount", b =>
+            modelBuilder.Entity("OnlineMuhasebeServer.Domain.CompanyEntities.UniformChartOfAccount", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Code")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CompanyId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
@@ -48,7 +45,7 @@ namespace OnlineMuhasebeServer.Persistance.Migrations.CompanyDb
 
                     b.HasKey("Id");
 
-                    b.ToTable("UnitformChartOfAccounts", (string)null);
+                    b.ToTable("UniformChartOfAccounts", (string)null);
                 });
 #pragma warning restore 612, 618
         }

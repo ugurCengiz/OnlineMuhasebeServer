@@ -2,7 +2,7 @@
 
 namespace OnlineMuhasebeServer.Domain.AppEntities.Identity
 {
-    public sealed class AppRole:IdentityRole<string>
+    public sealed class AppRole : IdentityRole<string>
     {
     }
 }

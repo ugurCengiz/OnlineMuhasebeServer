@@ -2,8 +2,7 @@
 
 namespace OnlineMuhasebeServer.Domain.AppEntities.Identity
 {
-    public  sealed class AppUser:IdentityUser<string>
-    {
-        
+    public sealed class AppUser : IdentityUser<string>
+    {        
     }
 }

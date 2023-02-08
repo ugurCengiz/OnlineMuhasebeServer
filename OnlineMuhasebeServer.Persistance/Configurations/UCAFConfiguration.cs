@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using OnlineMuhasebeServer.Domain.CompanyEntites;
+using OnlineMuhasebeServer.Domain.CompanyEntities;
 using OnlineMuhasebeServer.Persistance.Constans;
 
 namespace OnlineMuhasebeServer.Persistance.Configurations
 {
-    public sealed class UCAFConfiguration:IEntityTypeConfiguration<UnitFromChartOfAccount>
+    public sealed class UCAFConfiguration : IEntityTypeConfiguration<UniformChartOfAccount>
     {
-        public void Configure(EntityTypeBuilder<UnitFromChartOfAccount> builder)
+        public void Configure(EntityTypeBuilder<UniformChartOfAccount> builder)
         {
-            builder.ToTable(TableNames.UnitformChartOfAccounts);
+            builder.ToTable(TableNames.UniformChartOfAccounts);
             builder.HasKey(p => p.Id);
         }
     }
