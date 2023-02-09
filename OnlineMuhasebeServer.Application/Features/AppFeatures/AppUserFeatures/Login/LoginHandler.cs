@@ -32,12 +32,14 @@ namespace OnlineMuhasebeServer.Application.Features.AppFeatures.AppUserFeatures.
             var checkUser = await _userManager.CheckPasswordAsync(user, request.Password);
             if (!checkUser) throw new Exception("Şifreniz yanlış!");
 
+            List<string> roles = new();
+
             LoginResponse response = new()
             {
                 Email = user.Email,
                 NameLastName = user.NameLastName,
                 UserId = user.Id,
-                Token = await _jwtProvider.CreateTokenAsync(user, null)
+                Token = await _jwtProvider.CreateTokenAsync(user,roles)
             };
 
             return response;

@@ -12,8 +12,8 @@ using OnlineMuhasebeServer.Persistance.Context;
 namespace OnlineMuhasebeServer.Persistance.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230209134221_appuser-alanekleme")]
-    partial class appuseralanekleme
+    [Migration("20230209135925_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

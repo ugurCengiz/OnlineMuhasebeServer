@@ -12,8 +12,8 @@ using OnlineMuhasebeServer.Persistance.Context;
 namespace OnlineMuhasebeServer.Persistance.Migrations.CompanyDb
 {
     [DbContext(typeof(CompanyDbContext))]
-    [Migration("20230118061257_company_database_olusturma")]
-    partial class companydatabaseolusturma
+    [Migration("20230209140003_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,9 +31,6 @@ namespace OnlineMuhasebeServer.Persistance.Migrations.CompanyDb
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Code")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CompanyId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
