@@ -17,6 +17,7 @@ namespace OnlineMuhasebeServer.WebApi.Configurations
             
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IContextService, ContextService>();
+            services.AddScoped<IRoleService, RoleService>();
             #endregion
 
             //--------------------------------------------------------------------
