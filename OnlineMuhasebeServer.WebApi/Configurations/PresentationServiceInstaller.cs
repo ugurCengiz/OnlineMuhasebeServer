@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 using OnlineMuhasebeServer.Application;
+using OnlineMuhasebeServer.WebApi.Middleware;
 
 
 namespace OnlineMuhasebeServer.WebApi.Configurations
@@ -10,7 +11,7 @@ namespace OnlineMuhasebeServer.WebApi.Configurations
         public void Installer(IServiceCollection services, IConfiguration configuration)
         {
             // Add services to the container.
-
+            services.AddScoped<ExceptionMiddleware>();
 
             services.AddControllers()
                 .AddApplicationPart(typeof(AssemblyReference).Assembly);

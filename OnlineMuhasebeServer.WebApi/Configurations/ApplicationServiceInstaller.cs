@@ -1,12 +1,20 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
+using OnlineMuhasebeServer.Application;
+using OnlineMuhasebeServer.Application.Behavior;
 
 namespace OnlineMuhasebeServer.WebApi.Configurations
 {
-    public class ApplicationServiceInstaller:IServiceInstaller
+    public class ApplicationServiceInstaller : IServiceInstaller
     {
+      
         public void Installer(IServiceCollection services, IConfiguration configuration)
         {
-           services.AddMediatR(typeof(OnlineMuhasebeServer.Application.AssemblyReference).Assembly);
+            services.AddMediatR(typeof(AssemblyReference).Assembly);
+
+            services.AddTransient(typeof(IPipelineBehavior<,>), (typeof(ValidationBehavior<,>)));
+
+            services.AddValidatorsFromAssembly(typeof(AssemblyReference).Assembly);
         }
     }
 }
