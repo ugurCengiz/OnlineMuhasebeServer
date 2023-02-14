@@ -14,7 +14,10 @@ namespace OnlineMuhasebeServer.Persistance.Context
         public AppDbContext(DbContextOptions options) : base(options)
         {
         }
-        
+
+        public DbSet<MainRole> MainRoles { get; set; }
+        public DbSet<MainRoleAndRoleRelationship> MainRoleAndRoleRelationships { get; set; }
+
         public DbSet<Company> Companies { get; set; }
         public DbSet<UserAndCompanyRelationship> UserAndCompanyRelationships { get; set; }
 

@@ -1,50 +1,44 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
-using OnlineMuhasebeServer.Application;
 using OnlineMuhasebeServer.WebApi.Middleware;
-
 
 namespace OnlineMuhasebeServer.WebApi.Configurations
 {
     public class PresentationServiceInstaller : IServiceInstaller
     {
-        public void Installer(IServiceCollection services, IConfiguration configuration)
+        public void Install(IServiceCollection services, IConfiguration configuration)
         {
-            // Add services to the container.
             services.AddScoped<ExceptionMiddleware>();
 
             services.AddControllers()
-                .AddApplicationPart(typeof(AssemblyReference).Assembly);
-
-
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+                .AddApplicationPart(typeof(OnlineMuhasebeServer.Presentation.AssemblyReference).Assembly);
+            // Lsearn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(setup =>
-             {
-                 var jwtSecuritySheme = new OpenApiSecurityScheme
-                 {
-                     BearerFormat = "JWT",
-                     Name = "JWT Authentication",
-                     In = ParameterLocation.Header,
-                     Type = SecuritySchemeType.Http,
-                     Scheme = JwtBearerDefaults.AuthenticationScheme,
-                     Description = "Put **_ONLY_** yourt JWT Bearer token on textbox below!",
+            {
+                var jwtSecuritySheme = new OpenApiSecurityScheme
+                {
+                    BearerFormat = "JWT",
+                    Name = "JWT Authentication",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Scheme = JwtBearerDefaults.AuthenticationScheme,
+                    Description = "Put **_ONLY_** yourt JWT Bearer token on textbox below!",
 
-                     Reference = new OpenApiReference
-                     {
-                         Id = JwtBearerDefaults.AuthenticationScheme,
-                         Type = ReferenceType.SecurityScheme
-                     }
-                 };
+                    Reference = new OpenApiReference
+                    {
+                        Id = JwtBearerDefaults.AuthenticationScheme,
+                        Type = ReferenceType.SecurityScheme
+                    }
+                };
 
-                 setup.AddSecurityDefinition(jwtSecuritySheme.Reference.Id, jwtSecuritySheme);
+                setup.AddSecurityDefinition(jwtSecuritySheme.Reference.Id, jwtSecuritySheme);
 
-                 setup.AddSecurityRequirement(new OpenApiSecurityRequirement
-                 {
+                setup.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
                     { jwtSecuritySheme, Array.Empty<string>() }
-                 });
-             });
-
+                });
+            });
         }
     }
 }

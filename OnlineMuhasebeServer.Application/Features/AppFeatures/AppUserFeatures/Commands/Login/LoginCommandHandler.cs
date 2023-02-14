@@ -10,9 +10,9 @@ using OnlineMuhasebeServer.Application.Abstractions;
 using OnlineMuhasebeServer.Application.Messaging;
 using OnlineMuhasebeServer.Domain.AppEntities.Identity;
 
-namespace OnlineMuhasebeServer.Application.Features.AppFeatures.AppUserFeatures.Login
+namespace OnlineMuhasebeServer.Application.Features.AppFeatures.AppUserFeatures.Commands.Login
 {
-    public class LoginCommandHandler :ICommandHandler<LoginCommand,LoginCommandResponse>
+    public class LoginCommandHandler : ICommandHandler<LoginCommand, LoginCommandResponse>
     {
         private readonly IJwtProvider _jwtProvider;
         private readonly UserManager<AppUser> _userManager;
@@ -35,8 +35,8 @@ namespace OnlineMuhasebeServer.Application.Features.AppFeatures.AppUserFeatures.
 
             List<string> roles = new();
 
-            LoginCommandResponse response = new(await _jwtProvider.CreateTokenAsync(user,roles),user.Email,user.Id,user.NameLastName);
-            
+            LoginCommandResponse response = new(await _jwtProvider.CreateTokenAsync(user, roles), user.Email, user.Id, user.NameLastName);
+
             return response;
 
 

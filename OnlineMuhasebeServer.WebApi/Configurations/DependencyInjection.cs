@@ -14,7 +14,7 @@ namespace OnlineMuhasebeServer.WebApi.Configurations
 
             foreach (IServiceInstaller serviceInstaller in serviceInstallers)
             {
-                serviceInstaller.Installer(services, configuration);
+                serviceInstaller.Install(services, configuration);
             }
 
             return services;
