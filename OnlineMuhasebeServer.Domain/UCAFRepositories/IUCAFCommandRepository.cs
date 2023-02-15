@@ -1,9 +1,9 @@
 ﻿using OnlineMuhasebeServer.Domain.CompanyEntites;
-using OnlineMuhasebeServer.Domain.Repositories;
+using OnlineMuhasebeServer.Domain.Repositories.GenericRepository.CompanyDbContext;
 
 namespace OnlineMuhasebeServer.Domain.UCAFRepositories
 {
-    public interface IUCAFCommandRepository:ICommandRepository<UnitFromChartOfAccount>
+    public interface IUCAFCommandRepository:ICompanyDbCommandRepository<UnitFromChartOfAccount>
     {
     }
 }

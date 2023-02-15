@@ -3,7 +3,8 @@ using OnlineMuhasebeServer.Application.Features.CompanyFeatures.UCAFFeatures.Com
 using OnlineMuhasebeServer.Application.Services.CompanyServices;
 using OnlineMuhasebeServer.Domain;
 using OnlineMuhasebeServer.Domain.CompanyEntities;
-using OnlineMuhasebeServer.Domain.Repositories.UCAFRepositories;
+using OnlineMuhasebeServer.Domain.Repositories.CompanyDbContext.UCAFRepositories;
+using OnlineMuhasebeServer.Domain.UnitOfWorks;
 using OnlineMuhasebeServer.Persistance.Context;
 
 namespace OnlineMuhasebeServer.Persistance.Services.CompanyServices
@@ -13,10 +14,10 @@ namespace OnlineMuhasebeServer.Persistance.Services.CompanyServices
         private readonly IUCAFCommandRepository _commandRepository;
         private readonly IContextService _contextService;
         private readonly IUCAFQueryRepository _ucafQueryRepository;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly ICompanyDbUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private CompanyDbContext _context;
-        public UCAFService(IUCAFCommandRepository commandRepository, IContextService contextService, IUnitOfWork unitOfWork, IMapper mapper, IUCAFQueryRepository ucafQueryRepository)
+        public UCAFService(IUCAFCommandRepository commandRepository, IContextService contextService, ICompanyDbUnitOfWork unitOfWork, IMapper mapper, IUCAFQueryRepository ucafQueryRepository)
         {
             _commandRepository = commandRepository;
             _contextService = contextService;
