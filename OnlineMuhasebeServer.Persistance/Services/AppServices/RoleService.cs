@@ -45,9 +45,9 @@ namespace OnlineMuhasebeServer.Persistance.Services.AppServices
             return roles;
         }
 
-        public async Task<AppRole> GetByCode(string code)
+        public async Task<AppRole> GetByCode(string code, CancellationToken cancellationToken = default)
         {
-            AppRole role = await _roleManager.Roles.FirstOrDefaultAsync(p => p.Code == code);
+            AppRole role = await _roleManager.Roles.FirstOrDefaultAsync(p => p.Code == code,cancellationToken);
             return role;
         }
 

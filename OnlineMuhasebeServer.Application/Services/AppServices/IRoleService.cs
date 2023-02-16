@@ -12,7 +12,7 @@ namespace OnlineMuhasebeServer.Application.Services.AppServices
 
         Task<IList<AppRole>> GetAllRolesAsync();
         Task<AppRole> GetById(string id);
-        Task<AppRole> GetByCode(string code);
+        Task<AppRole> GetByCode(string code,CancellationToken cancellationToken = default);
 
 
     }

@@ -1,4 +1,5 @@
-﻿using OnlineMuhasebeServer.Domain.AppEntities.Identity;
+﻿using OnlineMuhasebeServer.Domain.AppEntities;
+using OnlineMuhasebeServer.Domain.AppEntities.Identity;
 
 namespace OnlineMuhasebeServer.Domain.Roles
 {
@@ -16,6 +17,17 @@ namespace OnlineMuhasebeServer.Domain.Roles
             
 
             return appRoles;
+        }
+
+        public static List<MainRole> GetStaticMainRoles()
+        {
+            List<MainRole> mainRoles = new List<MainRole>
+            {
+                new MainRole(Guid.NewGuid().ToString(), "Admin", true),
+                new MainRole(Guid.NewGuid().ToString(), "Yönetici", true),
+                new MainRole(Guid.NewGuid().ToString(), "Kullanıcı", true),
+            };
+            return mainRoles;
         }
 
 

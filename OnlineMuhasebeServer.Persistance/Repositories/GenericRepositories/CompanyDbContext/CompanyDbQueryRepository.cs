@@ -44,13 +44,14 @@ namespace OnlineMuhasebeServer.Persistance.Repositories.GenericRepositories.Comp
         {
             return await GetByIdCompiled(_context, id, isTracking);
         }
+        
 
         public async Task<T> GetFirst(bool isTracking = true)
         {
             return await GetFirstCompiled(_context, isTracking);
         }
 
-        public async Task<T> GetFirstByExpiression(Expression<Func<T, bool>> expression, bool isTracking = true)
+        public async Task<T> GetFirstByExpiression(Expression<Func<T, bool>> expression, CancellationToken cancellationToken, bool isTracking = true)
         {
             T entity = null;
             if (!isTracking)

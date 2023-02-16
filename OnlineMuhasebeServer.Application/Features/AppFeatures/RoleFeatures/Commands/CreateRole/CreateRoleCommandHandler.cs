@@ -23,7 +23,7 @@ namespace OnlineMuhasebeServer.Application.Features.AppFeatures.RoleFeatures.Com
 
         public async Task<CreateRoleCommandResponse> Handle(CreateRoleCommand request, CancellationToken cancellationToken)
         {
-            AppRole role = await _roleService.GetByCode(request.Code);
+            AppRole role = await _roleService.GetByCode(request.Code,cancellationToken);
 
             if (role != null) throw new Exception("Bu rol daha önce kayıt edilmiştir.");
 

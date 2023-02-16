@@ -21,7 +21,7 @@ namespace OnlineMuhasebeServer.Application.Features.AppFeatures.RoleFeatures.Com
 
             if (role.Code!= request.Code)
             {
-                AppRole checkCode = await _roleService.GetByCode(request.Code);
+                AppRole checkCode = await _roleService.GetByCode(request.Code,cancellationToken);
                 if (checkCode != null) throw new Exception("Bu kod daha önce kaydedilmiştir!");
                 
             }

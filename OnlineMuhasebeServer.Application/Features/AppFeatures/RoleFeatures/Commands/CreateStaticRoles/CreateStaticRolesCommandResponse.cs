@@ -1,5 +1,5 @@
 ﻿namespace OnlineMuhasebeServer.Application.Features.AppFeatures.RoleFeatures.Commands.CreateAllRoles
 {
-    public sealed record CreateAllRolesCommandResponse(string Message="Roller başarıyla oluşturuldu.");
+    public sealed record CreateStaticRolesCommandResponse(string Message="Roller başarıyla oluşturuldu.");
     
 }

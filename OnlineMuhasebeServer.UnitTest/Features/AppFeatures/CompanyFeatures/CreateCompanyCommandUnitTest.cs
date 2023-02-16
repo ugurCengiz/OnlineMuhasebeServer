@@ -4,7 +4,7 @@ using OnlineMuhasebeServer.Application.Services.AppServices;
 using OnlineMuhasebeServer.Domain.AppEntities;
 using Shouldly;
 
-namespace OnlineMuhasebeServer.UnitTest.Features.AppFeatures.CompanyFeatures.Commands;
+namespace OnlineMuhasebeServer.UnitTest.Features.AppFeatures.CompanyFeatures;
 
 public sealed class CreateCompanyCommandUnitTest
 {
@@ -26,7 +26,7 @@ public sealed class CreateCompanyCommandUnitTest
     public async Task CreateCompanyCommandResponseShouldNotBeNull()
     {
 
-        var command = new CreateCompanyCommand(Name:"Cengiz Ltd. Şti.",ServerName:"localhost",DatabaseName:"CengizMuhasebeDb",UserId:"",Password:"");
+        var command = new CreateCompanyCommand(Name: "Cengiz Ltd. Şti.", ServerName: "localhost", DatabaseName: "CengizMuhasebeDb", UserId: "", Password: "");
 
         var handler = new CreateCompanyCommandHandler(_companyService.Object);
         CreateCompanyCommandResponse response = await handler.Handle(command, default);
