@@ -1,0 +1,10 @@
+using OnlineMuhasebeServer.Domain.AppEntities;
+using OnlineMuhasebeServer.Domain.Repositories.GenericRepository.AppDbContext;
+
+
+namespace OnlineMuhasebeServer.Domain.Repositories.AppDbContext.MainRoleAndUserRelationshipRepositories;
+
+public interface IMainRoleAndUserRelationshipCommandRepository : IAppCommandRepository<MainRoleAndUserRelationship>
+{
+
+}
