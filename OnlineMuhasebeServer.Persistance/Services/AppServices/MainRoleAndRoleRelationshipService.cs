@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using OnlineMuhasebeServer.Application.Services.AppServices;
 using OnlineMuhasebeServer.Domain.AppEntities;
 using OnlineMuhasebeServer.Domain.Repositories.AppDbContext.MainRoleAndRoleRelationshipRepositories;
@@ -7,50 +8,53 @@ namespace OnlineMuhasebeServer.Persistance.Services.AppServices;
 
 public class MainRoleAndRoleRelationshipService : IMainRoleAndRoleRelationshipService
 {
-    private readonly IMainRoleAndRoleRelationshipCommandRepository _andRoleRelationshipCommandRepository;
-    private readonly IMainRoleAndRoleRelationshipQueryRepository _andRoleRelationshipQueryRepository;
-    private readonly IAppUnitOfWork _appUnitOfWork;
+    private readonly IMainRoleAndRoleRelationshipCommandRepository _commandRepository;
+    private readonly IMainRoleAndRoleRelationshipQueryRepository _queryRepository;
+    private readonly IAppUnitOfWork _unitOfWork;
 
-    public MainRoleAndRoleRelationshipService(IMainRoleAndRoleRelationshipQueryRepository andRoleRelationshipQueryRepository, IMainRoleAndRoleRelationshipCommandRepository andRoleRelationshipCommandRepository, IAppUnitOfWork appUnitOfWork)
+    public MainRoleAndRoleRelationshipService(IMainRoleAndRoleRelationshipCommandRepository commandRepository, IMainRoleAndRoleRelationshipQueryRepository queryRepository, IAppUnitOfWork unitOfWork)
     {
-        _andRoleRelationshipQueryRepository = andRoleRelationshipQueryRepository;
-        _andRoleRelationshipCommandRepository = andRoleRelationshipCommandRepository;
-        _appUnitOfWork = appUnitOfWork;
+        _commandRepository = commandRepository;
+        _queryRepository = queryRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task CreateAsync(MainRoleAndRoleRelationship mainRoleAndRoleRelationship, CancellationToken cancellationToken)
     {
-        await _andRoleRelationshipCommandRepository.AddAsync(mainRoleAndRoleRelationship, cancellationToken);
-        await _appUnitOfWork.SaveChangesAsync(cancellationToken);
-    }
-
-    public async Task UpdateAsync(MainRoleAndRoleRelationship mainRoleAndRoleRelationship)
-    {
-        _andRoleRelationshipCommandRepository.Update(mainRoleAndRoleRelationship);
-        await _appUnitOfWork.SaveChangesAsync();
-    }
-
-    public async Task RemoveByIdAsync(string id)
-    {
-        await _andRoleRelationshipCommandRepository.RemoveById(id);
-        await _appUnitOfWork.SaveChangesAsync();
-
+        await _commandRepository.AddAsync(mainRoleAndRoleRelationship, cancellationToken);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
     }
 
     public IQueryable<MainRoleAndRoleRelationship> GetAll()
     {
-        return _andRoleRelationshipQueryRepository.GetAll();
+        return _queryRepository.GetAll();
     }
 
     public async Task<MainRoleAndRoleRelationship> GetByIdAsync(string id)
     {
-        return await _andRoleRelationshipQueryRepository.GetById(id);
+        return await _queryRepository.GetById(id);
+    }
+
+    public async Task<MainRoleAndRoleRelationship> GetByRoleIdAndMainRoleId(string roleId, string mainRoleId, CancellationToken cancellationToken = default)
+    {
+        return await _queryRepository.GetFirstByExpiression(p => p.RoleId == roleId && p.MainRoleId == mainRoleId, cancellationToken);
+    }
+
+    public async Task<IList<MainRoleAndRoleRelationship>> GetListByMainRoleIdForGetRolesAsync(string id)
+    {
+        return await _queryRepository.GetWhere(p => p.MainRoleId == id).Include("AppRole").ToListAsync();
+    }
+
+    public async Task RemoveByIdAsync(string id)
+    {
+        await _commandRepository.RemoveById(id);
+        await _unitOfWork.SaveChangesAsync();
 
     }
 
-    public async Task<MainRoleAndRoleRelationship> GetByRoleIdAndMainRoleId(string roleId, string mainRoleId,CancellationToken cancellationToken)
+    public async Task UpdateAsync(MainRoleAndRoleRelationship mainRoleAndRoleRelationship)
     {
-        return await _andRoleRelationshipQueryRepository.GetFirstByExpiression(x =>
-            x.RoleId == roleId && x.MainRoleId == mainRoleId,cancellationToken);
+        _commandRepository.Update(mainRoleAndRoleRelationship);
+        await _unitOfWork.SaveChangesAsync();
     }
 }

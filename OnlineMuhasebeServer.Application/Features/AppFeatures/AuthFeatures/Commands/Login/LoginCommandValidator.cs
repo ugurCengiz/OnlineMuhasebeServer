@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FluentValidation;
+using OnlineMuhasebeServer.Application.Features.AuthFeatures.AuthFeatures.Commands.Login;
 
-namespace OnlineMuhasebeServer.Application.Features.AppFeatures.AppUserFeatures.Commands.Login
+namespace OnlineMuhasebeServer.Application.Features.AppFeatures.AuthFeatures.Commands.Login
 {
     public sealed class LoginCommandValidator : AbstractValidator<LoginCommand>
     {

@@ -10,5 +10,6 @@ namespace OnlineMuhasebeServer.Application.Services.AppServices
         Task<Company?> GetCompanyByName(string name, CancellationToken cancellationToken=default);
 
         IQueryable<Company> GetAll();
+    
     }
 }

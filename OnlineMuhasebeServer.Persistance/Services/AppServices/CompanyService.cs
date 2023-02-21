@@ -45,6 +45,8 @@ namespace OnlineMuhasebeServer.Persistance.Services.AppServices
             return _companyQueryRepository.GetAll();
         }
 
+        
+
         public async Task MigrateCompanyDatabases()
         {
             var companies = await _companyQueryRepository.GetAll().ToListAsync();

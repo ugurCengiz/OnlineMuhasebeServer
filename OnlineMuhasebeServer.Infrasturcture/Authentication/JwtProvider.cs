@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using OnlineMuhasebeServer.Application.Abstractions;
 using OnlineMuhasebeServer.Domain.AppEntities.Identity;
+using OnlineMuhasebeServer.Domain.Dtos;
 
 namespace OnlineMuhasebeServer.Infrasturcture.Authentication
 {
@@ -20,14 +21,14 @@ namespace OnlineMuhasebeServer.Infrasturcture.Authentication
             _jwtOptions = jwtOptions.Value;
         }
 
-        public async Task<string> CreateTokenAsync(AppUser user, List<string> roles)
+        public async Task<TokenRefreshTokenDto> CreateTokenAsync(AppUser user)
         {
             var claims = new Claim[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.NameLastName),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(ClaimTypes.Authentication, user.Id),
-                new Claim(ClaimTypes.Role, string.Join(",", roles))
+                new Claim(ClaimTypes.Authentication, user.Id)
+                //new Claim(ClaimTypes.Role, string.Join(",", roles))
 
             };
 
@@ -50,7 +51,7 @@ namespace OnlineMuhasebeServer.Infrasturcture.Authentication
 
             await _userManager.UpdateAsync(user);
 
-            return token;
+            return new(token,refreshToken,user.RefreshTokenExpires);
         }
     }
 }
