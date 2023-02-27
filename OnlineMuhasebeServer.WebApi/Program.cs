@@ -24,6 +24,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.UseCors();
 
 using (var scoped= app.Services.CreateScope())
 {

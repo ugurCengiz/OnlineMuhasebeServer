@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.VisualBasic;
 using OnlineMuhasebeServer.Application.Abstractions;
 using OnlineMuhasebeServer.Application.Features.AuthFeatures.AuthFeatures.Commands.Login;
 using OnlineMuhasebeServer.Application.Messaging;
@@ -42,7 +43,8 @@ namespace OnlineMuhasebeServer.Application.Features.AppFeatures.AuthFeatures.Com
                 UserId: user.Id,
                 NameLastName: user.NameLastName,
                 Companies: companiesDto,
-                Company: companiesDto[0]
+                Company: companiesDto[0],
+                Year:DateTime.Now.Year
                 );
 
             return response;
