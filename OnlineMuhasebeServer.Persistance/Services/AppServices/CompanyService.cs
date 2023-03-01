@@ -17,6 +17,8 @@ namespace OnlineMuhasebeServer.Persistance.Services.AppServices
         private readonly ICompanyCommandRepository _companyCommandRepository;
         private readonly ICompanyQueryRepository _companyQueryRepository;
         private readonly IMapper _mapper;
+
+        
         public CompanyService( IMapper mapper, ICompanyCommandRepository companyCommandRepository, ICompanyQueryRepository companyQueryRepository, IAppUnitOfWork appUnitOfWork)
         {
             
