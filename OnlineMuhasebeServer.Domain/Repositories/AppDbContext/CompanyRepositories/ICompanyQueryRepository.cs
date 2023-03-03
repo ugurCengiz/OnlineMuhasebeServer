@@ -1,9 +1,8 @@
 ﻿using OnlineMuhasebeServer.Domain.AppEntities;
-using OnlineMuhasebeServer.Domain.Repositories.GenericRepository.AppDbContext;
+using OnlineMuhasebeServer.Domain.Repositories.GenericRepositories.AppDbContext;
 
-namespace OnlineMuhasebeServer.Domain.Repositories.AppDbContext.CompanyRepositories
+namespace OnlineMuhasebeServer.Domain.Repositories.AppDbContext.CompanyRepositories;
+
+public interface ICompanyQueryRepository : IAppQueryRepository<Company>
 {
-    public interface ICompanyQueryRepository:IAppQueryRepository<Company>
-    {
-    }
 }

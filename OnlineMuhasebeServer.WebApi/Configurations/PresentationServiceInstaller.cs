@@ -9,11 +9,12 @@ namespace OnlineMuhasebeServer.WebApi.Configurations
         public void Install(IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<ExceptionMiddleware>();
+
             services.AddCors(options => options.AddDefaultPolicy(options =>
             {
                 options.AllowAnyHeader().AllowAnyMethod().AllowCredentials().SetIsOriginAllowed(options => true);
             }));
-           
+
             services.AddControllers()
                 .AddApplicationPart(typeof(OnlineMuhasebeServer.Presentation.AssemblyReference).Assembly);
             // Lsearn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

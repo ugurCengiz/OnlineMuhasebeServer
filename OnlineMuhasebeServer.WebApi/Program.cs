@@ -1,5 +1,3 @@
-
-
 using Microsoft.AspNetCore.Identity;
 using OnlineMuhasebeServer.Domain.AppEntities.Identity;
 using OnlineMuhasebeServer.WebApi.Configurations;
@@ -7,8 +5,9 @@ using OnlineMuhasebeServer.WebApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.InstallServices(builder.Configuration, typeof(IServiceInstaller).Assembly);
-
+builder.Services
+    .InstallServices(
+    builder.Configuration, typeof(IServiceInstaller).Assembly);
 
 var app = builder.Build();
 
@@ -20,12 +19,14 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseExceptionMiddleware();
+
 app.UseHttpsRedirection();
 
-app.MapControllers();
 app.UseCors();
 
-using (var scoped= app.Services.CreateScope())
+app.MapControllers();
+
+using (var scoped = app.Services.CreateScope())
 {
     var userManager = scoped.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
     if (!userManager.Users.Any())
@@ -36,7 +37,7 @@ using (var scoped= app.Services.CreateScope())
             Email = "ugurcengiz@gmail.com",
             Id = Guid.NewGuid().ToString(),
             NameLastName = "Ugur Cengiz"
-        },"Password1*").Wait();
+        }, "Password1*").Wait();
     }
 }
 

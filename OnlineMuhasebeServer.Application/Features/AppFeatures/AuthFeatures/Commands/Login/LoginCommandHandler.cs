@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.VisualBasic;
+﻿using MediatR;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using OnlineMuhasebeServer.Application.Abstractions;
-using OnlineMuhasebeServer.Application.Features.AuthFeatures.AuthFeatures.Commands.Login;
 using OnlineMuhasebeServer.Application.Messaging;
 using OnlineMuhasebeServer.Application.Services.AppServices;
 using OnlineMuhasebeServer.Domain.AppEntities;
@@ -44,7 +44,7 @@ namespace OnlineMuhasebeServer.Application.Features.AppFeatures.AuthFeatures.Com
                 NameLastName: user.NameLastName,
                 Companies: companiesDto,
                 Company: companiesDto[0],
-                Year:DateTime.Now.Year
+                Year: DateTime.Now.Year
                 );
 
             return response;

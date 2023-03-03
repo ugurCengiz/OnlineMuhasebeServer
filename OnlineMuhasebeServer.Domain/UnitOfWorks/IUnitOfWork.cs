@@ -1,7 +1,6 @@
-﻿namespace OnlineMuhasebeServer.Domain.UnitOfWorks
+﻿namespace OnlineMuhasebeServer.Domain.UnitOfWorks;
+
+public interface IUnitOfWork
 {
-    public interface IUnitOfWork
-    {
-        Task<int> SaveChangesAsync(CancellationToken cancellationToken=default);
-    }
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

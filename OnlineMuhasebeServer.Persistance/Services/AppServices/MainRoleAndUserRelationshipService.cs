@@ -1,5 +1,6 @@
 using OnlineMuhasebeServer.Application.Services.AppServices;
 using OnlineMuhasebeServer.Domain.AppEntities;
+using OnlineMuhasebeServer.Domain.Repositories.AppDbContext.MainRoleAndRoleRelationshipRepositories;
 using OnlineMuhasebeServer.Domain.Repositories.AppDbContext.MainRoleAndUserRelationshipRepositories;
 using OnlineMuhasebeServer.Domain.UnitOfWorks;
 
@@ -30,7 +31,7 @@ public class MainRoleAndUserRelationshipService : IMainRoleAndUserRelationshipSe
         return entity;
     }
 
-    public async Task<MainRoleAndUserRelationship> GetByUserIdCompanyIdAndMainRoleIdAsync(string userId, string companyId, string mainRoleId, CancellationToken cancellationToken)
+    public async Task<MainRoleAndUserRelationship> GetByUserIdCompanyIdAndMainRoleIdAsync(string userId, string companyId, string mainRoleId,CancellationToken cancellationToken)
     {
         return await _queryRepository.GetFirstByExpiression(p => p.UserId == userId && p.CompanyId == companyId && p.MainRoleId == mainRoleId, cancellationToken);
     }

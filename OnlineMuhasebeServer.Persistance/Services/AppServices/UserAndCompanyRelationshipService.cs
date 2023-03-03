@@ -32,12 +32,12 @@ public class UserAndCompanyRelationshipService : IUserAndCompanyRelationshipServ
 
     public async Task<UserAndCompanyRelationship> GetByUserIdAndCompanyId(string userId, string companyId, CancellationToken cancellationToken)
     {
-        return await _queryRepository.GetFirstByExpiression(p => p.AppUserId == userId && p.CompanyId == companyId, cancellationToken);
+        return await _queryRepository.GetFirstByExpiression(p=> p.AppUserId == userId && p.CompanyId == companyId, cancellationToken);
     }
 
     public async Task<IList<UserAndCompanyRelationship>> GetListByUserId(string userId)
     {
-        return await _queryRepository.GetWhere(p => p.AppUserId == userId).Include("Company").ToListAsync();
+        return await _queryRepository.GetWhere(p=> p.AppUserId == userId).Include("Company").ToListAsync();   
     }
 
     public async Task RemoveByIdAsync(string id)

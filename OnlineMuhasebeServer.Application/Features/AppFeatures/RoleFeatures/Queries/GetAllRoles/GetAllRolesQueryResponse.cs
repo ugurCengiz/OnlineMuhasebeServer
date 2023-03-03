@@ -2,6 +2,6 @@
 
 namespace OnlineMuhasebeServer.Application.Features.AppFeatures.RoleFeatures.Queries.GetAllRoles
 {
-    public sealed record GetAllRolesQueryResponse(IList<AppRole> Roles);
-   
+    public sealed record GetAllRolesQueryResponse(
+        IList<AppRole> Roles);
 }

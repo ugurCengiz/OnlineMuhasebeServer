@@ -3,6 +3,11 @@ using OnlineMuhasebeServer.Application.Features.CompanyFeatures.UCAFFeatures.Com
 using OnlineMuhasebeServer.Application.Services.CompanyServices;
 using OnlineMuhasebeServer.Domain.CompanyEntities;
 using Shouldly;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace OnlineMuhasebeServer.UnitTest.Features.CompanyFeatures
 {
@@ -18,10 +23,10 @@ namespace OnlineMuhasebeServer.UnitTest.Features.CompanyFeatures
         [Fact]
         public async Task UniformChartOfAccountShouldNotBeNull()
         {
-            _service.Setup(s =>
-                    s.GetByIdAsync(
-                        It.IsAny<string>(),
-                        It.IsAny<string>()))
+            _service.Setup(s=>
+            s.GetByIdAsync(
+                It.IsAny<string>(),
+                It.IsAny<string>()))
                 .ReturnsAsync(new UniformChartOfAccount());
         }
 

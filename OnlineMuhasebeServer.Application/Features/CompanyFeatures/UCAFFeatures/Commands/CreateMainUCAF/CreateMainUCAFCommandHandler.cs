@@ -1,21 +1,20 @@
 ﻿using OnlineMuhasebeServer.Application.Messaging;
 using OnlineMuhasebeServer.Application.Services.CompanyServices;
 
-namespace OnlineMuhasebeServer.Application.Features.CompanyFeatures.UCAFFeatures.Commands.CreateMainUCAF
+namespace OnlineMuhasebeServer.Application.Features.CompanyFeatures.UCAFFeatures.Commands.CreateMainUCAF;
+
+public sealed class CreateMainUCAFCommandHandler : ICommandHandler<CreateMainUCAFCommand, CreateMainUCAFCommandResponse>
 {
-    public sealed class CreateMainUCAFCommandHandler:ICommandHandler<CreateMainUCAFCommand,CreateMainUCAFCommandResponse>
+    private readonly IUCAFService _ucafService;
+
+    public CreateMainUCAFCommandHandler(IUCAFService ucafService)
     {
-        private readonly IUCAFService _ucafService;
+        _ucafService = ucafService;
+    }
 
-        public CreateMainUCAFCommandHandler(IUCAFService ucafService)
-        {
-            _ucafService = ucafService;
-        }
-
-        public async Task<CreateMainUCAFCommandResponse> Handle(CreateMainUCAFCommand request, CancellationToken cancellationToken)
-        {
-            await _ucafService.CreateCompanyMainUcafsToCompanyAsync(request.CompanyId, cancellationToken);
-            return new();
-        }
+    public async Task<CreateMainUCAFCommandResponse> Handle(CreateMainUCAFCommand request, CancellationToken cancellationToken)
+    {
+        await _ucafService.CreateMainUcafsToCompanyAsync(request.CompanyId, cancellationToken);
+        return new();
     }
 }

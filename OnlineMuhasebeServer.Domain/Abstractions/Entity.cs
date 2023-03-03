@@ -8,10 +8,7 @@ namespace OnlineMuhasebeServer.Domain.Abstractions
 {
     public abstract class Entity
     {
-        public Entity()
-        {
-            
-        }
+        public Entity() {}
 
         public Entity(string id)
         {

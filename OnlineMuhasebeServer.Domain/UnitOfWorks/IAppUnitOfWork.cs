@@ -1,7 +1,5 @@
-﻿namespace OnlineMuhasebeServer.Domain.UnitOfWorks
-{
-    public interface IAppUnitOfWork : IUnitOfWork
-    {
+﻿namespace OnlineMuhasebeServer.Domain.UnitOfWorks;
 
-    }
+public interface IAppUnitOfWork : IUnitOfWork
+{
 }

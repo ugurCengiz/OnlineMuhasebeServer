@@ -1,10 +1,8 @@
 ﻿using OnlineMuhasebeServer.Domain.Abstractions;
-using OnlineMuhasebeServer.Domain.Repositories.GenericRepositories;
 
-namespace OnlineMuhasebeServer.Domain.Repositories.GenericRepository.AppDbContext
+namespace OnlineMuhasebeServer.Domain.Repositories.GenericRepositories.AppDbContext;
+
+public interface IAppQueryRepository<T> : IQueryGenericRepository<T>, IRepository<T>
+    where T:Entity
 {
-    public interface IAppQueryRepository<T>:IQueryGenericRepository<T>,IRepository<T> where T:Entity
-    {
-
-    }
 }

@@ -31,11 +31,10 @@ namespace OnlineMuhasebeServer.Persistance.Services.AppServices
             {
                 await _roleManager.CreateAsync(role);
             }
-            
         }
 
         public async Task DeleteAsync(AppRole appRole)
-        {
+        {            
             await _roleManager.DeleteAsync(appRole);
         }
 
@@ -45,9 +44,9 @@ namespace OnlineMuhasebeServer.Persistance.Services.AppServices
             return roles;
         }
 
-        public async Task<AppRole> GetByCode(string code, CancellationToken cancellationToken = default)
+        public async Task<AppRole> GetByCode(string code)
         {
-            AppRole role = await _roleManager.Roles.FirstOrDefaultAsync(p => p.Code == code,cancellationToken);
+            AppRole role = await _roleManager.Roles.FirstOrDefaultAsync(p=> p.Code == code);
             return role;
         }
 

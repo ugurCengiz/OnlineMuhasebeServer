@@ -5,36 +5,39 @@ using OnlineMuhasebeServer.Application.Services.AppServices;
 using OnlineMuhasebeServer.Domain.AppEntities;
 using Shouldly;
 
-namespace OnlineMuhasebeServer.UnitTest.Features.AppFeatures.MainRoleAndRoleRLFeatures
+namespace OnlineMuhasebeServer.UnitTest.Features.AppFeatures.MainRoleAndRoleRLFeatures;
+
+public sealed class CreateMainRoleAndRoleRLCommandUnitTest
 {
-    public sealed class CreateMainRoleAndRoleRLCommandUnitTest
+    private readonly Mock<IMainRoleAndRoleRelationshipService> _service;
+
+    public CreateMainRoleAndRoleRLCommandUnitTest()
     {
+        _service = new();
+    }
 
-        private readonly Mock<IMainRoleAndRoleRelationshipService> _service;
+    [Fact]
+    public async Task MainRoleAndRoleRelationshipShouldBeNull()
+    {
+        MainRoleAndRoleRelationship entity = (await _service.Object.GetByRoleIdAndMainRoleId(
+            roleId: "ab89c723-6086-4d67-b2fd-407bfc0b3f2d",
+            mainRoleId: "58986c90-54d0-4f21-968e-c10b30bfee66",
+            cancellationToken: default))!;
+        entity.ShouldBeNull();
+    }
 
-        public CreateMainRoleAndRoleRLCommandUnitTest()
-        {
-            _service = new();
-        }
+    [Fact]
+    public async Task CreateMainRoleAndRoleRLCommandResponseShouldNotBeNull()
+    {
+        var command = new CreateMainRoleAndRoleRLCommand(
+            RoleId: "ab89c723-6086-4d67-b2fd-407bfc0b3f2d",
+            MainRoleId: "58986c90-54d0-4f21-968e-c10b30bfee66");
 
-        [Fact]
-        public async Task MainRoleAndRoleRelationshipShouldBeNull()
-        {
-            MainRoleAndRoleRelationship mainRoleAndRoleRelationship = (await _service.Object.GetByRoleIdAndMainRoleId(roleId: "cab9e453-f86e-462e-8bd8-bf3d2160a923", mainRoleId: "b2a39d48-1abf-47f7-9b35-6db9a0d39706", default))!;
-            mainRoleAndRoleRelationship.ShouldBeNull();
-        }
+        var handler = new CreateMainRoleAndRoleRLCommandHandler(_service.Object);
 
-        [Fact]
-        public async Task CreateMainRoleAndRoleRLCommandResponseShouldNotBeNull()
-        {
 
-            var command = new CreateMainRoleAndRoleRLCommand(RoleId: "cab9e453-f86e-462e-8bd8-bf3d2160a923", MainRoleId: "b2a39d48-1abf-47f7-9b35-6db9a0d39706");
-
-            var handler = new CreateMainRoleAndRoleRLCommandHandler(_service.Object);
-            CreateMainRoleAndRoleRLCommandResponse response = await handler.Handle(command, default);
-
-            response.ShouldNotBeNull();
-            response.Message.ShouldNotBeEmpty();
-        }
+        CreateMainRoleAndRoleRLCommandResponse response = await handler.Handle(command, default);
+        response.ShouldNotBeNull();
+        response.Message.ShouldNotBeEmpty();
     }
 }

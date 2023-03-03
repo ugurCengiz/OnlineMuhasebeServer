@@ -1,13 +1,12 @@
 ﻿using OnlineMuhasebeServer.Domain.AppEntities;
-using OnlineMuhasebeServer.Domain.Repositories.AppDbContext.MainRoleRepositories;
+using OnlineMuhasebeServer.Domain.Repositories.AppDbContext.MainRoleReporsitories;
 using OnlineMuhasebeServer.Persistance.Repositories.GenericRepositories.AppDbContext;
 
-namespace OnlineMuhasebeServer.Persistance.Repositories.AppDbContext.MainRoleRepositories
+namespace OnlineMuhasebeServer.Persistance.Repositories.AppDbContext.MainRoleRepositories;
+
+public sealed class MainRoleQueryRepository : AppQueryRepository<MainRole>, IMainRoleQueryRepository
 {
-    public  sealed class MainRoleQueryRepository:AppQueryRepository<MainRole>,IMainRoleQueryRepository
+    public MainRoleQueryRepository(Context.AppDbContext context) : base(context)
     {
-        public MainRoleQueryRepository(Context.AppDbContext context) : base(context)
-        {
-        }
     }
 }

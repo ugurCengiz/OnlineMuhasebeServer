@@ -18,21 +18,25 @@ public sealed class CreateCompanyCommandUnitTest
     [Fact]
     public async Task CompanyShouldBeNull()
     {
-        Company company = (await _companyService.Object.GetCompanyByName("cengiz"))!;
+        Company company = (await _companyService.Object.GetCompanyByName("Saydam Ltd Şti",default))!;
         company.ShouldBeNull();
     }
 
     [Fact]
     public async Task CreateCompanyCommandResponseShouldNotBeNull()
     {
-
-        var command = new CreateCompanyCommand(Name: "Cengiz Ltd. Şti.", ServerName: "localhost", DatabaseName: "CengizMuhasebeDb", UserId: "", Password: "");
+        var command = new CreateCompanyCommand(
+            Name: "Saydam Ltd Şti",
+           ServerName: "localhost",
+           DatabaseName: "SaydamMuhasebeDb",
+           UserId: "",
+           Password: "");
 
         var handler = new CreateCompanyCommandHandler(_companyService.Object);
-        CreateCompanyCommandResponse response = await handler.Handle(command, default);
 
+
+        CreateCompanyCommandResponse response = await handler.Handle(command, default);
         response.ShouldNotBeNull();
         response.Message.ShouldNotBeEmpty();
     }
-
 }

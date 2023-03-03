@@ -14,14 +14,12 @@ namespace OnlineMuhasebeServer.Persistance.Context
         public AppDbContext(DbContextOptions options) : base(options)
         {
         }
-
+        
+        public DbSet<Company> Companies { get; set; }
         public DbSet<MainRole> MainRoles { get; set; }
         public DbSet<MainRoleAndRoleRelationship> MainRoleAndRoleRelationships { get; set; }
-
-        public DbSet<Company> Companies { get; set; }
         public DbSet<UserAndCompanyRelationship> UserAndCompanyRelationships { get; set; }
         public DbSet<MainRoleAndUserRelationship> MainRoleAndUserRelationships { get; set; }
-
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
@@ -60,7 +58,7 @@ namespace OnlineMuhasebeServer.Persistance.Context
             {                
                 var optionsBuilder = new DbContextOptionsBuilder();
 
-                var connectionString = "Data Source=W10\\MSSQLSERVER01;Initial Catalog=MuhasebeMasterDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+                var connectionString = "Data Source=DESKTOP-3BJ5GK9;Initial Catalog=MuhasebeMasterDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
                 optionsBuilder.UseSqlServer(connectionString);
 

@@ -19,7 +19,7 @@ public sealed class DeleteRoleCommandUnitTest
     public async Task AppRoleShouldNotBeNull()
     {
         _roleServiceMock.Setup(
-                x => x.GetById(It.IsAny<string>()))
+            x => x.GetById(It.IsAny<string>()))
             .ReturnsAsync(new AppRole());
     }
 
@@ -27,10 +27,10 @@ public sealed class DeleteRoleCommandUnitTest
     public async Task DeleteRoleCommandResponseShouldNotBeNull()
     {
         var command = new DeleteRoleCommand(
-            Id: "165bee31-d37c-4dfc-9e72-b4684ed79902");
+            Id: "585985c0-4576-4d62-ae67-59a6f72ae906");
 
         _roleServiceMock.Setup(
-                x => x.GetById(It.IsAny<string>()))
+            x => x.GetById(It.IsAny<string>()))
             .ReturnsAsync(new AppRole());
 
         var handler = new DeleteRoleCommandHandler(_roleServiceMock.Object);

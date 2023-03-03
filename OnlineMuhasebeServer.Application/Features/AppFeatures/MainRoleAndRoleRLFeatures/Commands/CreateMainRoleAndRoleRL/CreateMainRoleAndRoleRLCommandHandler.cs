@@ -2,30 +2,29 @@
 using OnlineMuhasebeServer.Application.Services.AppServices;
 using OnlineMuhasebeServer.Domain.AppEntities;
 
-namespace OnlineMuhasebeServer.Application.Features.AppFeatures.MainRoleAndRoleRLFeatures.Commands.CreateMainRoleAndRoleRL
+namespace OnlineMuhasebeServer.Application.Features.AppFeatures.MainRoleAndRoleRLFeatures.Commands.CreateMainRoleAndRoleRL;
+
+public sealed record CreateMainRoleAndRoleRLCommandHandler : ICommandHandler<CreateMainRoleAndRoleRLCommand, CreateMainRoleAndRoleRLCommandResponse>
 {
-    public sealed class CreateMainRoleAndRoleRLCommandHandler : ICommandHandler<CreateMainRoleAndRoleRLCommand, CreateMainRoleAndRoleRLCommandResponse>
+    private readonly IMainRoleAndRoleRelationshipService _mainRoleAndRoleRelationshipService;
+
+    public CreateMainRoleAndRoleRLCommandHandler(IMainRoleAndRoleRelationshipService mainRoleAndRoleRelationshipService)
     {
-        private readonly IMainRoleAndRoleRelationshipService _mainRoleAndRoleRelationshipService;
+        _mainRoleAndRoleRelationshipService = mainRoleAndRoleRelationshipService;
+    }
 
-        public CreateMainRoleAndRoleRLCommandHandler(IMainRoleAndRoleRelationshipService mainRoleAndRoleRelationshipService)
-        {
-            _mainRoleAndRoleRelationshipService = mainRoleAndRoleRelationshipService;
-        }
+    public async Task<CreateMainRoleAndRoleRLCommandResponse> Handle(CreateMainRoleAndRoleRLCommand request, CancellationToken cancellationToken)
+    {
+        MainRoleAndRoleRelationship checkRoleAndMainRoleIsRelated = await _mainRoleAndRoleRelationshipService.GetByRoleIdAndMainRoleId(request.RoleId, request.MainRoleId, cancellationToken);
 
-        public async Task<CreateMainRoleAndRoleRLCommandResponse> Handle(CreateMainRoleAndRoleRLCommand request, CancellationToken cancellationToken)
-        {
-            MainRoleAndRoleRelationship checkMainRoleAndRoleRelationship =
-                await _mainRoleAndRoleRelationshipService.GetByRoleIdAndMainRoleId(request.RoleId, request.MainRoleId,
-                    cancellationToken);
+        if (checkRoleAndMainRoleIsRelated != null) throw new Exception("Bu rol ilişlişi daha önce kurulmuş!");
 
-            if (checkMainRoleAndRoleRelationship != null) throw new Exception("Bu rol ilişkisi daha önce kurulmuş!");
+        MainRoleAndRoleRelationship mainRoleAndRoleRelationship = new(
+            Guid.NewGuid().ToString(),
+            request.RoleId,
+            request.MainRoleId);
 
-
-            MainRoleAndRoleRelationship mainRoleAndRoleRelationship = new(Guid.NewGuid().ToString(), request.RoleId, request.MainRoleId);
-
-            await _mainRoleAndRoleRelationshipService.CreateAsync(mainRoleAndRoleRelationship, cancellationToken);
-            return new();
-        }
+        await _mainRoleAndRoleRelationshipService.CreateAsync(mainRoleAndRoleRelationship, cancellationToken);
+        return new();
     }
 }

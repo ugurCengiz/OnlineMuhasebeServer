@@ -3,31 +3,29 @@ using OnlineMuhasebeServer.Application.Services.AppServices;
 using OnlineMuhasebeServer.Domain.AppEntities.Identity;
 using OnlineMuhasebeServer.Domain.Roles;
 
-namespace OnlineMuhasebeServer.Application.Features.AppFeatures.RoleFeatures.Commands.CreateAllRoles
+namespace OnlineMuhasebeServer.Application.Features.AppFeatures.RoleFeatures.Commands.CreateAllRoles;
+
+public sealed class CreateStaticRolesCommandHandler : ICommandHandler<CreateStaticRolesCommand, CreateStaticRolesCommandResponse>
 {
-    public sealed class CreateStaticRolesCommandHandler : ICommandHandler<CreateStaticRolesCommand, CreateStaticRolesCommandResponse>
+    private readonly IRoleService _roleService;
+
+    public CreateStaticRolesCommandHandler(IRoleService roleService)
     {
-        private readonly IRoleService _roleService;
+        _roleService = roleService;
+    }
 
-        public CreateStaticRolesCommandHandler(IRoleService roleService)
+    public async Task<CreateStaticRolesCommandResponse> Handle(CreateStaticRolesCommand request, CancellationToken cancellationToken)
+    {
+        IList<AppRole> originalRoleList = RoleList.GetStaticRoles();
+        IList<AppRole> newRoleList = new List<AppRole>();
+
+        foreach (var role in originalRoleList)
         {
-            _roleService = roleService;
+            AppRole checkRole = await _roleService.GetByCode(role.Code);
+            if (checkRole == null) newRoleList.Add(role);
         }
 
-        public async Task<CreateStaticRolesCommandResponse> Handle(CreateStaticRolesCommand request, CancellationToken cancellationToken)
-        {
-            IList<AppRole> originalRoleList = RoleList.GetStaticRoles();
-            IList<AppRole> newRoleList = new List<AppRole>();
-
-            foreach (var role in originalRoleList)
-            {
-                AppRole checkRole = await _roleService.GetByCode(role.Code,cancellationToken);
-
-                if (checkRole == null) newRoleList.Add(role);
-            }
-
-            await _roleService.AddRangeAsync(newRoleList);
-            return new();
-        }
+        await _roleService.AddRangeAsync(newRoleList);
+        return new();
     }
 }

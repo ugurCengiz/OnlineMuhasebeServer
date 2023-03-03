@@ -29,11 +29,10 @@ namespace OnlineMuhasebeServer.Presentation.Controller
         }
 
         [HttpGet("[action]")]
-        public async Task<IActionResult> GetAllCompanies()
+        public async Task<IActionResult> GetAllCompany()
         {
             GetAllCompanyQuery request = new();
-            GetAllCompanyQueryResponse response = await _mediator.Send(request,default);
-
+            GetAllCompanyQueryResponse response = await _mediator.Send(request);
             return Ok(response);
         }
     }

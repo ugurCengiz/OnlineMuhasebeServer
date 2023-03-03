@@ -33,7 +33,7 @@ public class MainRoleAndRoleRelationshipService : IMainRoleAndRoleRelationshipSe
     public async Task<MainRoleAndRoleRelationship> GetByIdAsync(string id)
     {
         return await _queryRepository.GetById(id);
-    }
+    }    
 
     public async Task<MainRoleAndRoleRelationship> GetByRoleIdAndMainRoleId(string roleId, string mainRoleId, CancellationToken cancellationToken = default)
     {

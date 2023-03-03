@@ -1,19 +1,16 @@
-﻿using OnlineMuhasebeServer.Domain.AppEntities;
+﻿using Azure.Core;
+using MediatR;
+using OnlineMuhasebeServer.Domain.AppEntities;
 
-namespace OnlineMuhasebeServer.Application.Services.AppServices
+namespace OnlineMuhasebeServer.Application.Services.AppServices;
+
+public interface IMainRoleService
 {
-    public interface IMainRoleService
-    {
-        Task<MainRole> GetByTitleAndCompanyId(string title, string companyId, CancellationToken cancellationToken = default);
-        Task CreateAsync(MainRole mainRole, CancellationToken cancellationToken);
-
-        Task CreateRangeAsync(List<MainRole> newMainRoles, CancellationToken cancellationToken);
-        Task RemoveByIdAsync(string id);
-
-        IQueryable<MainRole > GetAll();
-
-        Task<MainRole> GetByIdAsync(string id);
-
-        Task UpdateAsync(MainRole mainRole);
-    }
+    Task<MainRole> GetByTitleAndCompanyId(string title, string companyId, CancellationToken cancellationToken);
+    Task CreateAsync(MainRole mainRole, CancellationToken cancellationToken);
+    Task CreateRangeAsync(List<MainRole> newMainRoles, CancellationToken cancellationToken);
+    IQueryable<MainRole> GetAll();
+    Task RemoveByIdAsync(string id);
+    Task<MainRole> GetByIdAsync(string id);
+    Task UpdateAsync(MainRole mainRole);
 }

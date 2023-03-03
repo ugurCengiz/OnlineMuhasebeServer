@@ -2,7 +2,6 @@
 
 namespace OnlineMuhasebeServer.Application.Features.AppFeatures.MainRoleFeatures.Commands.RemoveMainRole
 {
-    public sealed record RemoveByIdMainRoleCommand(string Id) : ICommand<RemoveByIdMainRoleCommandResponse>;
-
-  
+    public sealed record RemoveByIdMainRoleCommand(
+        string Id): ICommand<RemoveByIdMainRoleCommandResponse>;
 }

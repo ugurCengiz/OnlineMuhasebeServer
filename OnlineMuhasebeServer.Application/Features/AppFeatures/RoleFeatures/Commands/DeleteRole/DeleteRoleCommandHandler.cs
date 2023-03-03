@@ -4,8 +4,9 @@ using OnlineMuhasebeServer.Domain.AppEntities.Identity;
 
 namespace OnlineMuhasebeServer.Application.Features.AppFeatures.RoleFeatures.Commands.DeleteRole
 {
-    public class DeleteRoleCommandHandler : ICommandHandler<DeleteRoleCommand, DeleteRoleCommandResponse>
+    public sealed class DeleteRoleCommandHandler : ICommandHandler<DeleteRoleCommand, DeleteRoleCommandResponse>
     {
+
         private readonly IRoleService _roleService;
 
         public DeleteRoleCommandHandler(IRoleService roleService)
@@ -16,12 +17,11 @@ namespace OnlineMuhasebeServer.Application.Features.AppFeatures.RoleFeatures.Com
         public async Task<DeleteRoleCommandResponse> Handle(DeleteRoleCommand request, CancellationToken cancellationToken)
         {
             AppRole role = await _roleService.GetById(request.Id);
-            if (role == null) throw new Exception("Role bulunamadı !");
+            if (role == null) throw new Exception("Role bulunamadı!");
 
             await _roleService.DeleteAsync(role);
 
             return new();
-
         }
     }
 }

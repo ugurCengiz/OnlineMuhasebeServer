@@ -15,6 +15,6 @@ public sealed class CreateUCAFCommandValidator : AbstractValidator<CreateUCAFCom
         RuleFor(p => p.CompanyId).NotNull().WithMessage("Şirket bilgisi adı boş olamaz!");
         RuleFor(p => p.Type).NotNull().WithMessage("Hesap planı tipi boş olamaz!");
         RuleFor(p => p.Type).NotEmpty().WithMessage("Hesap planı tipi boş olamaz!");
-      
+        RuleFor(p => p.Type).MaximumLength(1).WithMessage("Hesap planı tipi 1 karakter olmalıdır!");
     }
 }

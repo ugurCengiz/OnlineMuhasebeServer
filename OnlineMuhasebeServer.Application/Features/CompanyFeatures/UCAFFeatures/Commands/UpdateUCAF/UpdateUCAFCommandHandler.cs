@@ -2,38 +2,37 @@
 using OnlineMuhasebeServer.Application.Services.CompanyServices;
 using OnlineMuhasebeServer.Domain.CompanyEntities;
 
-namespace OnlineMuhasebeServer.Application.Features.CompanyFeatures.UCAFFeatures.Commands.UpdateUCAF
+namespace OnlineMuhasebeServer.Application.Features.CompanyFeatures.UCAFFeatures.Commands.UpdateUCAF;
+
+public sealed class UpdateUCAFCommandHandler : ICommandHandler<UpdateUCAFCommand, UpdateUCAFCommandResponse>
 {
-    public  sealed class UpdateUCAFCommandHandler:ICommandHandler<UpdateUCAFCommand,UpdateUCAFCommandResponse>
+    private readonly IUCAFService _service;
+
+    public UpdateUCAFCommandHandler(IUCAFService service)
     {
-        private readonly IUCAFService _service;
+        _service = service;
+    }
 
-        public UpdateUCAFCommandHandler(IUCAFService service)
+    public async Task<UpdateUCAFCommandResponse> Handle(UpdateUCAFCommand request, CancellationToken cancellationToken)
+    {
+        UniformChartOfAccount ucaf = await _service.GetByIdAsync(request.Id, request.CompanyId);
+
+        if (ucaf == null) throw new Exception("Hesap planı bulunamadı!");
+
+        if(ucaf.Code != request.Code)
         {
-            _service = service;
+            UniformChartOfAccount checkNewCode = await _service.GetByCodeAsync(request.CompanyId, request.Code, cancellationToken);
+            if (checkNewCode != null) throw new Exception("Bu hesap planı kodu daha önce kullanılmış!");
         }
 
-        public async Task<UpdateUCAFCommandResponse> Handle(UpdateUCAFCommand request, CancellationToken cancellationToken)
-        {
-            UniformChartOfAccount ucaf = await _service.GetByIdAsync(request.Id, request.CompanyId);
+        if (request.Type != "G" && request.Type != "M") throw new Exception("Hesap planı türü Grup ya da Muavin olmalıdır!");
 
-            if (ucaf == null) throw new Exception("Hesap planı bulunamadı!");
+        ucaf.Type = request.Type == "G" ? 'G' : 'M';
+        ucaf.Code = request.Code;
+        ucaf.Name = request.Name;
 
-            if (ucaf.Code != request.Code)
-            {
-                UniformChartOfAccount checkNewCode = await _service.GetByCodeAsync(request.CompanyId, request.Code, cancellationToken);
-                if (checkNewCode != null) throw new Exception("Bu hesap planı kodu daha önce kullanılmış!");
-            }
+        await _service.UpdateAsync(ucaf, request.CompanyId);
 
-            if (request.Type != "G" && request.Type != "M") throw new Exception("Hesap planı türü Grup ya da Muavin olmalıdır!");
-
-            ucaf.Type = request.Type == "G" ? 'G' : 'M';
-            ucaf.Code = request.Code;
-            ucaf.Name = request.Name;
-
-            await _service.UpdateAsync(ucaf, request.CompanyId);
-
-            return new();
-        }
+        return new();
     }
 }

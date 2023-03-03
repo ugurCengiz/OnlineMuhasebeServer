@@ -1,13 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OnlineMuhasebeServer.Domain.Abstractions;
-using OnlineMuhasebeServer.Domain.Repositories.GenericRepositories;
 
-namespace OnlineMuhasebeServer.Domain.Repositories.GenericRepository.CompanyDbContext
+namespace OnlineMuhasebeServer.Domain.Repositories.GenericRepositories.CompanyDbContext
 {
-    public interface ICompanyDbRepository<T>:IRepository<T>
+    public interface ICompanyDbRepository<T> : IRepository<T>
         where T : Entity
     {
-        void SetDbContextInstance(DbContext context);
-       
+        void SetDbContextInstance(DbContext context);        
     }
 }

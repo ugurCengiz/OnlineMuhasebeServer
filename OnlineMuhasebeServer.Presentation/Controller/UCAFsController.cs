@@ -8,54 +8,47 @@ using OnlineMuhasebeServer.Application.Features.CompanyFeatures.UCAFFeatures.Com
 using OnlineMuhasebeServer.Application.Features.CompanyFeatures.UCAFFeatures.Queries.GetAllUCAF;
 using OnlineMuhasebeServer.Presentation.Abstraction;
 
-namespace OnlineMuhasebeServer.Presentation.Controller
+namespace OnlineMuhasebeServer.Presentation.Controller;
+
+  // [Authorize(AuthenticationSchemes ="Bearer")]
+public sealed class UCAFsController : ApiController
 {
-    [Authorize(AuthenticationSchemes = "Bearer ")]
-    public sealed class UCAFsController : ApiController
+    public UCAFsController(IMediator mediator) : base(mediator)
     {
-        public UCAFsController(IMediator mediator) : base(mediator)
-        {
-        }
+    }
 
-        [HttpPost("[action]")]
-        public async Task<IActionResult> CreateUCAF(CreateUCAFCommand request, CancellationToken cancellationToken)
-        {
-            CreateUCAFCommandResponse response = await _mediator.Send(request, cancellationToken);
-            return Ok(response);
-        }
+    [HttpPost("[action]")]
+    public async Task<IActionResult> CreateUCAF(CreateUCAFCommand request, CancellationToken cancellationToken)
+    {
+        CreateUCAFCommandResponse response = await _mediator.Send(request, cancellationToken);
+        return Ok(response);
+    }
 
+    [HttpPost("[action]")]
+    public async Task<IActionResult> UpdateUCAF(UpdateUCAFCommand request, CancellationToken cancellationToken)
+    {
+        UpdateUCAFCommandResponse response = await _mediator.Send(request, cancellationToken);
+        return Ok(response);
+    }
 
-        [HttpPost("[action]")]
-        public async Task<IActionResult> CreateMainUCAF(CreateMainUCAFCommand request, CancellationToken cancellationToken)
-        {
-            CreateMainUCAFCommandResponse response = await _mediator.Send(request, cancellationToken);
+    [HttpPost("[action]")]
+    public async Task<IActionResult> CreateMainUCAF(CreateMainUCAFCommand request, CancellationToken cancellationToken)
+    {
+        CreateMainUCAFCommandResponse response = await _mediator.Send(request, cancellationToken);
+        return Ok(response);
+    }
 
-            return Ok(response);
-        }
+    [HttpPost("[action]")]
+    public async Task<IActionResult> GetAllUCAF(GetAllUCAFQuery request, CancellationToken cancellationToken)
+    {
+        GetAllUCAFQueryResponse response = await _mediator.Send(request, cancellationToken);
+        return Ok(response);
+    }
 
-
-        [HttpPost("[action]")]
-        public async Task<IActionResult> GetAllUCAF(GetAllUCAFQuery request, CancellationToken cancellationToken)
-        {
-
-            GetAllUCAFQueryResponse response = await _mediator.Send(request, cancellationToken);
-
-            return Ok(response);
-        }
-
-        [HttpPost("[action]")]
-        public async Task<IActionResult> RemoveByIdUCAF(RemoveByIdUCAFCommand request, CancellationToken cancellationToken)
-        {
-            RemoveByIdUCAFCommandResponse response = await _mediator.Send(request, cancellationToken);
-            return Ok(response);
-        }
-
-        [HttpPost("[action]")]
-        public async Task<IActionResult> UpdateUCAF(UpdateUCAFCommand request, CancellationToken cancellationToken)
-        {
-            UpdateUCAFCommandResponse response = await _mediator.Send(request, cancellationToken);
-            return Ok(response);
-        }
-
+    [HttpPost("[action]")]
+    public async Task<IActionResult> RemoveByIdUCAF(RemoveByIdUCAFCommand request, CancellationToken cancellationToken)
+    {
+        RemoveByIdUCAFCommandResponse response = await _mediator.Send(request, cancellationToken);
+        return Ok(response);
     }
 }

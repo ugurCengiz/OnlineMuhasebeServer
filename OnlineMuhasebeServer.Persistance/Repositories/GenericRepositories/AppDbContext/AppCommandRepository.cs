@@ -1,60 +1,59 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OnlineMuhasebeServer.Domain.Abstractions;
-using OnlineMuhasebeServer.Domain.Repositories.GenericRepository.AppDbContext;
+using OnlineMuhasebeServer.Domain.Repositories.GenericRepositories.AppDbContext;
 
-namespace OnlineMuhasebeServer.Persistance.Repositories.GenericRepositories.AppDbContext
+namespace OnlineMuhasebeServer.Persistance.Repositories.GenericRepositories.AppDbContext;
+
+public class AppCommandRepository<T> : IAppCommandRepository<T>
+    where T : Entity
 {
-    public class AppCommandRepository<T>:IAppCommandRepository<T> where T :Entity
+    private readonly Context.AppDbContext _context;
+
+    public AppCommandRepository(Context.AppDbContext context)
     {
-        private readonly Context.AppDbContext _context;
+        _context = context;
+        Entity = _context.Set<T>();
+    }
 
-        public AppCommandRepository(Context.AppDbContext context)
-        {
-            _context = context;
-            Entity = _context.Set<T>();
-        }
-        private static readonly Func<Context.AppDbContext, string, Task<T>> GetByIdCompiled =
+    private static readonly Func<Context.AppDbContext, string, Task<T>> GetByIdCompiled =
             EF.CompileAsyncQuery((Context.AppDbContext context, string id) =>
-                context.Set<T>().FirstOrDefault(p => p.Id == id));
-        public DbSet<T> Entity { get; set; }
+            context.Set<T>().FirstOrDefault(p => p.Id == id));
 
-        public async Task AddAsync(T entity, CancellationToken cancellationToken)
-        {
-            await Entity.AddAsync(entity, cancellationToken);
-        }
+    public DbSet<T> Entity { get; set; }
 
-        public async Task AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken)
-        {
-            await Entity.AddRangeAsync(entities, cancellationToken);
-        }
+    public async Task AddAsync(T entity, CancellationToken cancellationToken)
+    {
+        await Entity.AddAsync(entity, cancellationToken);
+    }
 
-        public void Remove(T entity)
-        {
-            Entity.Remove(entity);
-        }
+    public async Task AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken)
+    {
+        await Entity.AddRangeAsync(entities, cancellationToken);
+    }
 
-        public async Task RemoveById(string id)
-        {
-            T entity = await GetByIdCompiled(_context, id);
-            Remove(entity);
-        }
+    public void Remove(T entity)
+    {
+        Entity.Remove(entity);
+    }
 
-        public void RemoveRange(IEnumerable<T> entities)
-        {
-            Entity.RemoveRange(entities);
-        }
+    public async Task RemoveById(string id)
+    {
+        T entity = await GetByIdCompiled(_context, id);
+        Remove(entity);
+    }
 
-        public void Update(T entity)
-        {
-            Entity.Update(entity);
-        }
+    public void RemoveRange(IEnumerable<T> entities)
+    {
+        Entity.RemoveRange(entities);
+    }
 
-        public void UpdateRange(IEnumerable<T> entities)
-        {
-            Entity.UpdateRange(entities);
-        }
+    public void Update(T entity)
+    {
+        Entity.Update(entity);
+    }
 
-
-
+    public void UpdateRange(IEnumerable<T> entities)
+    {
+        Entity.UpdateRange(entities);
     }
 }

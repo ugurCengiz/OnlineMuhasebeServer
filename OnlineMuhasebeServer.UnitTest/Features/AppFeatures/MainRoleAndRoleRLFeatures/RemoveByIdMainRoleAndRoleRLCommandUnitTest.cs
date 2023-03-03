@@ -17,8 +17,8 @@ public sealed class RemoveByIdMainRoleAndRoleRLCommandUnitTest
     [Fact]
     public async Task MainRoleAndRoleRelationshipShouldNotBeNull()
     {
-        _serviceMock.Setup(s =>
-                s.GetByIdAsync(It.IsAny<string>()))
+        _serviceMock.Setup(s=> 
+        s.GetByIdAsync(It.IsAny<string>()))
             .ReturnsAsync(new Domain.AppEntities.MainRoleAndRoleRelationship());
     }
 
@@ -31,8 +31,8 @@ public sealed class RemoveByIdMainRoleAndRoleRLCommandUnitTest
         RemoveByIdMainRoleAndRoleRLCommandHandler handler = new(_serviceMock.Object);
 
         _serviceMock.Setup(s =>
-                s.GetByIdAsync(It.IsAny<string>()))
-            .ReturnsAsync(new Domain.AppEntities.MainRoleAndRoleRelationship());
+       s.GetByIdAsync(It.IsAny<string>()))
+           .ReturnsAsync(new Domain.AppEntities.MainRoleAndRoleRelationship());
 
         RemoveByIdMainRoleAndRoleRLCommandResponse response = await handler.Handle(removeByIdMainRoleAndRoleRLCommand, default);
         response.ShouldNotBeNull();

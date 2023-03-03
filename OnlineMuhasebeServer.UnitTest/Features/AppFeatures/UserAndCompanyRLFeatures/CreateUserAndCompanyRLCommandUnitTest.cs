@@ -35,7 +35,7 @@ public sealed class CreateUserAndCompanyRLCommandUnitTest
 
         CreateUserAndCompanyRLCommandHandler handler = new(_serviceMock.Object);
 
-        CreateUserAndCompanyRLCommandResponse response = await handler.Handle(command, default);
+        CreateUserAndCompanyRLCommandResponse response =  await handler.Handle(command, default);
         response.ShouldNotBeNull();
         response.Message.ShouldNotBeEmpty();
     }

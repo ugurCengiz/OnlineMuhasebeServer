@@ -3,10 +3,11 @@ using OnlineMuhasebeServer.Infrasturcture.Authentication;
 
 namespace OnlineMuhasebeServer.WebApi.OptionsSetup
 {
-    public sealed class JwtOptionsSetup :IConfigureOptions<JwtOptions>
+    public sealed class JwtOptionsSetup : IConfigureOptions<JwtOptions>
     {
-        private readonly IConfiguration _configuration;
         private const string Jwt = nameof(Jwt);
+        private readonly IConfiguration _configuration;
+
         public JwtOptionsSetup(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -15,7 +16,6 @@ namespace OnlineMuhasebeServer.WebApi.OptionsSetup
         public void Configure(JwtOptions options)
         {
             _configuration.GetSection(Jwt).Bind(options);
-
         }
     }
 }

@@ -14,7 +14,6 @@ namespace OnlineMuhasebeServer.Persistance.Mapping
         {
             CreateMap<CreateCompanyCommand, Company>();
             CreateMap<CreateUCAFCommand, UniformChartOfAccount>();
-
             CreateMap<CreateRoleCommand, AppRole>();
         }
     }

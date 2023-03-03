@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MediatR;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using OnlineMuhasebeServer.Application.Messaging;
+﻿using OnlineMuhasebeServer.Application.Messaging;
 using OnlineMuhasebeServer.Application.Services.AppServices;
 using OnlineMuhasebeServer.Domain.AppEntities.Identity;
 
@@ -23,16 +15,8 @@ namespace OnlineMuhasebeServer.Application.Features.AppFeatures.RoleFeatures.Com
 
         public async Task<CreateRoleCommandResponse> Handle(CreateRoleCommand request, CancellationToken cancellationToken)
         {
-            AppRole role = await _roleService.GetByCode(request.Code,cancellationToken);
-
-            if (role != null) throw new Exception("Bu rol daha önce kayıt edilmiştir.");
-
-            role = new AppRole
-            {
-                Id = Guid.NewGuid().ToString(),
-                Code = request.Code,
-                Name = request.Name,
-            };
+            AppRole role = await _roleService.GetByCode(request.Code);
+            if (role != null) throw new Exception("Bu rol daha önce kayıt edilmiş!");
 
             await _roleService.AddAsync(request);
             return new();
