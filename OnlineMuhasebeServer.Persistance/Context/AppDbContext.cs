@@ -35,7 +35,7 @@ namespace OnlineMuhasebeServer.Persistance.Context
 
                 if(entry.State == EntityState.Modified)
                 {
-                    entry.Property(p => p.UpdateDate)
+                    entry.Property(p => p.UpdatedDate)
                         .CurrentValue = DateTime.Now;
                 }
             }
@@ -58,7 +58,7 @@ namespace OnlineMuhasebeServer.Persistance.Context
             {                
                 var optionsBuilder = new DbContextOptionsBuilder();
 
-                var connectionString = "Data Source=DESKTOP-3BJ5GK9;Initial Catalog=MuhasebeMasterDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+                var connectionString = "Data Source=W10\\MSSQLSERVER01;Initial Catalog=MuhasebeMasterDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
 
                 optionsBuilder.UseSqlServer(connectionString);
 
