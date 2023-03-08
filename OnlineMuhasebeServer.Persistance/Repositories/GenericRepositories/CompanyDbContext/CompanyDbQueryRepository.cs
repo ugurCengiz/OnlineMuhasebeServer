@@ -2,6 +2,7 @@
 using OnlineMuhasebeServer.Domain.Abstractions;
 using OnlineMuhasebeServer.Domain.Repositories.GenericRepositories.CompanyDbContext;
 using System.Linq.Expressions;
+using EntityFrameworkCorePagination.Nuget.Pagination;
 
 namespace OnlineMuhasebeServer.Persistance.Repositories.GenericRepositories.CompanyDbContext;
 
@@ -24,6 +25,8 @@ public class CompanyDbQueryRepository<T> : ICompanyDbQueryRepository<T>
         _context = (Context.CompanyDbContext)context;
         Entity = _context.Set<T>();
     }
+
+    
 
     public IQueryable<T> GetAll(bool isTracking = true)
     {
@@ -61,4 +64,6 @@ public class CompanyDbQueryRepository<T> : ICompanyDbQueryRepository<T>
             result = result.AsNoTracking();
         return result;
     }
+
+   
 }

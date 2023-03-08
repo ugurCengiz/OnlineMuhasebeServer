@@ -12,9 +12,10 @@ namespace OnlineMuhasebeServer.Application.Features.CompanyFeatures.ReportFeatur
             _reportService = reportService;
         }
 
+
         public async Task<GetAllReportQueryResponse> Handle(GetAllReportQuery request, CancellationToken cancellationToken)
         {
-            return new(await _reportService.GetAllReportsByCompanyId(request.CompanyId));
+            return new(await _reportService.GetAllReportsByCompanyId(request.CompanyId,request.PageNumber,request.PageSize));
         }
     }
 }

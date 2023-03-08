@@ -1,11 +1,12 @@
 ﻿using OnlineMuhasebeServer.Domain.Abstractions;
 using System.Linq.Expressions;
+using EntityFrameworkCorePagination.Nuget.Pagination;
 
 namespace OnlineMuhasebeServer.Domain.Repositories.GenericRepositories;
 
-public interface IQueryGenericRepository<T>
-    where T : Entity
+public interface IQueryGenericRepository<T> where T : Entity
 {
+    
     IQueryable<T> GetAll(bool isTracking = true);
     IQueryable<T> GetWhere(Expression<Func<T, bool>> expression, bool isTracking = true);
     Task<T> GetById(string id, bool isTracking = true);
