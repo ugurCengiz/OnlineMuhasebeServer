@@ -8,16 +8,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OnlineMuhasebeServer.Application.Services;
 
 namespace OnlineMuhasebeServer.UnitTest.Features.CompanyFeatures.UCAFFeatures
 {
     public sealed class UpdateUCAFCommandUnitTest
     {
+
         private readonly Mock<IUCAFService> _service;
+        private readonly Mock<IApiService> _apiService;
+        private readonly Mock<ILogService> _logService;
 
         public UpdateUCAFCommandUnitTest()
         {
             _service = new();
+            _apiService = new();
+            _logService = new();
         }
 
         [Fact]
@@ -51,7 +57,7 @@ namespace OnlineMuhasebeServer.UnitTest.Features.CompanyFeatures.UCAFFeatures
 
             await UniformChartOfAccountShouldNotBeNull();
 
-            UpdateUCAFCommandHandler handler = new UpdateUCAFCommandHandler(_service.Object);
+            UpdateUCAFCommandHandler handler = new UpdateUCAFCommandHandler(_service.Object,_logService.Object,_apiService.Object);
 
             UpdateUCAFCommandResponse response = await handler.Handle(command, default);
 

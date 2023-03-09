@@ -1,4 +1,6 @@
-﻿using OnlineMuhasebeServer.Application.Messaging;
+﻿using Newtonsoft.Json;
+using OnlineMuhasebeServer.Application.Messaging;
+using OnlineMuhasebeServer.Application.Services;
 using OnlineMuhasebeServer.Application.Services.CompanyServices;
 using OnlineMuhasebeServer.Domain.CompanyEntities;
 
@@ -6,12 +8,19 @@ namespace OnlineMuhasebeServer.Application.Features.CompanyFeatures.UCAFFeatures
 
 public sealed class RemoveByIdUCAFCommandHandler : ICommandHandler<RemoveByIdUCAFCommand, RemoveByIdUCAFCommandResponse>
 {
-    private readonly IUCAFService _service;
 
-    public RemoveByIdUCAFCommandHandler(IUCAFService service)
+    private readonly IUCAFService _service;
+    private readonly ILogService _logService;
+    private readonly IApiService _apiService;
+
+    public RemoveByIdUCAFCommandHandler(IUCAFService service, ILogService logService, IApiService apiService)
     {
         _service = service;
+        _logService = logService;
+        _apiService = apiService;
     }
+
+
 
     public async Task<RemoveByIdUCAFCommandResponse> Handle(RemoveByIdUCAFCommand request, CancellationToken cancellationToken)
     {
@@ -19,7 +28,20 @@ public sealed class RemoveByIdUCAFCommandHandler : ICommandHandler<RemoveByIdUCA
 
         if (!checkRemoveUcafById) throw new Exception("Hesap planına bağlı alt hesaplar olduğundan silinemiyor!");
 
-        await _service.RemoveByIdUcafAsync(request.Id, request.CompanyId);
+        UniformChartOfAccount ucaf=  await _service.RemoveByIdUcafAsync(request.Id, request.CompanyId);
+        string userId = _apiService.GetUserIdByToken();
+
+        Log log = new()
+        {
+            Id = Guid.NewGuid().ToString(),
+            TableName = nameof(UniformChartOfAccount),
+            Progress = "Delete",
+            UserId = userId,
+            Data = JsonConvert.SerializeObject(ucaf)
+
+        };
+
+        await _logService.AddAsync(log, request.CompanyId);
 
         return new();
     }

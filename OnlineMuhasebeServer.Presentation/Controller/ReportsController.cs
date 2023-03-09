@@ -1,13 +1,17 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineMuhasebeServer.Application.Features.CompanyFeatures.ReportFeatures.Commands;
 using OnlineMuhasebeServer.Application.Features.CompanyFeatures.ReportFeatures.Queries;
 using OnlineMuhasebeServer.Presentation.Abstraction;
+using System.Net;
 
 namespace OnlineMuhasebeServer.Presentation.Controller;
 
+[Authorize(AuthenticationSchemes = "Bearer")]
 public class ReportsController : ApiController
 {
+
     public ReportsController(IMediator mediator) : base(mediator) { }
 
     [HttpPost("[action]")]
