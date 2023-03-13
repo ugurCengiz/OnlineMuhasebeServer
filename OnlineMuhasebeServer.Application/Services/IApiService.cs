@@ -3,5 +3,6 @@
     public interface IApiService
     {
         string GetUserIdByToken();
+        
     }
 }

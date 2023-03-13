@@ -5,9 +5,10 @@ namespace OnlineMuhasebeServer.Application.Features.CompanyFeatures.BookEntryFea
 {
     public sealed record GetAllBookEntryQuery(
         string CompanyId,
+        int Year,
         int PageNumber =1,
         int PageSize=10
-        ): IQuery<PaginationResult<GetAllBookEntryQueryResponse>>;
+    ): IQuery<PaginationResult<GetAllBookEntryQueryResponse>>;
 
 
 }

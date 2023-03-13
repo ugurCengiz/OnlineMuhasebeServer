@@ -8,6 +8,6 @@ public interface IBookEntryService
 {
     Task<string> GetNewBookEntryNumber(string companyId);
     Task AddAsync(string companyId, BookEntry bookEntry, CancellationToken cancellationToken);
-    Task<PaginationResult<BookEntry>> GetAllAsync(string companyId, int pageNumber, int pageSize,CancellationToken cancellationToken);
+    Task<PaginationResult<BookEntry>> GetAllAsync(string companyId, int pageNumber, int pageSize,int year,CancellationToken cancellationToken);
     int GetCount(string companyId);
 }

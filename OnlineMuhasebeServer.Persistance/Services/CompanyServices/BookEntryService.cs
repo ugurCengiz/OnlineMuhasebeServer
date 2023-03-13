@@ -53,21 +53,25 @@ public class BookEntryService : IBookEntryService
     }
 
 
-    public async Task  AddAsync(string companyId, BookEntry bookEntry, CancellationToken cancellationToken)
+    public async Task AddAsync(string companyId, BookEntry bookEntry, CancellationToken cancellationToken)
     {
         _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
-         _commandRepository.SetDbContextInstance(_context);
+        _commandRepository.SetDbContextInstance(_context);
+        _unitOfWork.SetDbContextInstance(_context);
 
-         await _commandRepository.AddAsync(bookEntry, cancellationToken);
-         await _unitOfWork.SaveChangesAsync(cancellationToken);
+        await _commandRepository.AddAsync(bookEntry, cancellationToken);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<PaginationResult<BookEntry>> GetAllAsync(string companyId, int pageNumber, int pageSize, CancellationToken cancellationToken)
+    public async Task<PaginationResult<BookEntry>> GetAllAsync(string companyId, int pageNumber, int pageSize, int year, CancellationToken cancellationToken)
     {
         _context = (CompanyDbContext)_contextService.CreateDbContextInstance(companyId);
         _queryRepository.SetDbContextInstance(_context);
 
-        return await _queryRepository.GetAll(false).OrderByDescending(x => x.Date)
+        string startingDateString = "01.01." + year;
+        string endDateString = "31.12." + year;
+
+        return await _queryRepository.GetWhere(y => y.Date >= Convert.ToDateTime(startingDateString) && y.Date <= Convert.ToDateTime(endDateString)).OrderByDescending(x => x.CreatedDate)
             .ToPagedListAsync(pageNumber, pageSize);
     }
 
