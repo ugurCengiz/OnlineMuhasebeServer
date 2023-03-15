@@ -10,4 +10,8 @@ public interface IBookEntryService
     Task AddAsync(string companyId, BookEntry bookEntry, CancellationToken cancellationToken);
     Task<PaginationResult<BookEntry>> GetAllAsync(string companyId, int pageNumber, int pageSize,int year,CancellationToken cancellationToken);
     int GetCount(string companyId);
+
+    Task<BookEntry> RemoveByIdAsync(string id, string companyId);
+    Task<BookEntry> GetByIdAsync(string id, string companyId);
+    Task<BookEntry> UpdateAsync(BookEntry bookEntry, string companyId);
 }
